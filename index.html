@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Omer — Practice Problems</title>
 
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DGN6Q0WG71"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DGN6Q0WG71');
+</script>
+
 <style>
   body {
     margin: 0;
@@ -100,23 +109,16 @@
   <hr />
   <section>
     <h2>Computer Science</h2>
-
     <div class="topic">
       <a href="Computer Science/Intro_CS_ASSIGNMENT.pdf">Intro to Computer Science</a>
     </div>
-  </section> 
+  </section>
 
   <hr />
   <section>
     <h2>Exams</h2>
-
-    <div class="topic">
-      <a href="Exams/Alg1ExamFormA.pdf">Algebra I Exam — Form A</a>
-    </div>
-
-    <div class="topic">
-      <a href="Exams/HS_Physics_Exam.pdf">High School Physics Exam</a>
-    </div>
+    <div class="topic"><a href="Exams/Alg1ExamFormA.pdf">Algebra I Exam — Form A</a></div>
+    <div class="topic"><a href="Exams/HS_Physics_Exam.pdf">High School Physics Exam</a></div>
   </section>
 
   <footer>
@@ -129,6 +131,19 @@
   const lastUpdated = new Date(document.lastModified);
   document.getElementById("last-updated").textContent =
     lastUpdated.toLocaleDateString() + " " + lastUpdated.toLocaleTimeString();
+
+  // Track PDF downloads
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest("a");
+    if (!link) return;
+    const href = link.getAttribute("href") || "";
+    if (href.toLowerCase().endsWith(".pdf")) {
+      gtag("event", "pdf_download", {
+        file: href,
+        label: link.textContent.trim()
+      });
+    }
+  });
 </script>
 
 </body>
